@@ -1,9 +1,8 @@
 from django import forms
+from .models import *
 
 
-# class RegisterForm(forms.Form):
-#     name =
-#     surname =
-#     email =
-#     password =
-#     password2 =
+class UserRegisterForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')

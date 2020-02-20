@@ -1,6 +1,10 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from model_utils import Choices
+
+
+class User(AbstractUser):
+    pass
 
 
 class Category(models.Model):
@@ -8,10 +12,14 @@ class Category(models.Model):
 
 
 class Institution(models.Model):
+    TYPE = Choices(
+        ('FUN', 'fundacja'),
+        ('ORG', 'organizacja pozarządowa'),
+        ('ZBL', 'zbiórka lokalna')
+    )
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
-    TYPE = Choices(('fundacja', ('fundacja')), ('organizacja pozarządowa', ('organizacja pozarządowa')), ('zbiórka lokalna', ('zbiórka lokalna')))
-    type = models.CharField(max_length=25, choices=TYPE, default=TYPE.fundacja)
+    type = models.CharField(max_length=3, choices=TYPE, default=TYPE.FUN)
     categories = models.ManyToManyField(Category)
 
 
@@ -27,5 +35,3 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, models.SET_NULL, null=True)
-
-
