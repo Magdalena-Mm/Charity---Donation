@@ -117,7 +117,7 @@
 
                         <div class="col">
                             <div class="text">
-                                {% for categories in institution.categories.all %}{{ categories }} {% endfor %}</div>
+                                 {% for cat in category %}{{ cat.categories.name }} {% endfor %}</div>
                         </div>
                     </li>
                 {% endfor %}
